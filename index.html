@@ -1,0 +1,734 @@
+<!-- 點人會講話 hover game-->
+
+<!DOCTYPE html>
+<html>
+
+
+<head>
+	<title>Hip-hop Feast!</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="./js/require.js" type="text/javascript"></script>
+	<script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+	<link rel="icon" href="image/favicon.png">
+	<style type="text/css">
+
+		@font-face {
+		    font-family: "My Custom Font";
+		    src: url("fonts/aaaiight-fat.ttf") format("truetype");
+		}
+		.customfont { 
+		    font-family: "My Custom Font", Verdana, Tahoma;
+		}
+
+		body{
+			background-color: #1A1A1A;
+			color: white;
+		}
+
+		h2{
+			font-size: 20px;
+		}
+
+		.all_wrapper{
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			/* bring your own prefixes */
+			transform: translate(-50%, -50%);
+			margin-top: -10px;
+			width: 1000px;
+		}
+
+		.rappers{
+			height: 100px;
+			width: 100px;
+			margin-top: 10px;
+			margin-left: 2.5px;
+			margin-right: 2.5px;
+			cursor: pointer;
+		}
+		.col-lg-12{
+			text-align: center;
+		}
+		button{
+			color: black;
+		}
+
+		.title h1{
+			text-align: center;
+			font-size: 60px;
+		}
+
+		.title h2{
+			text-align: center;
+			font-size: 30px;
+		}
+
+		.description p{
+			font-size: 20px;
+		}
+
+		.dishes{
+			margin-top: 10px;
+			text-align: center;
+			display: none;
+		}
+
+		.dishes h2{
+			font-size: 20px;
+			font-family: "My Custom Font", Verdana, Tahoma;
+		}
+
+		.showbox{
+			height: 360px;
+		}
+
+		.title{
+			margin-top: -20px;
+			height:160px;
+		}
+
+		.bottom{
+			/*margin-top: -50px;*/
+			height: 80px;
+		}
+
+		.allrappers{
+			margin-top: 50px;
+		}
+
+		#loadingGif{
+			margin-top: 50px;
+			text-align: center;
+			font-size: 20px;
+		}
+
+		#cookingGif{
+			height:300px;
+		}
+
+		.dishImage{
+			height: 200px;
+		}
+
+		.highlight{
+			font-size: 110%;
+			color: yellow;
+		}
+
+		.animate-bottom {
+		  /*position: relative;*/
+		  -webkit-animation-name: animatebottom;
+		  -webkit-animation-duration: 1s;
+		  animation-name: animatebottom;
+		  animation-duration: 1.5s
+		}
+
+		@-webkit-keyframes animatebottom {
+		  from { bottom:-100px; opacity:0 } 
+		  to { bottom:0px; opacity:1 }
+		}
+
+		@keyframes animatebottom { 
+		  from{ bottom:-100px; opacity:0 } 
+		  to{ bottom:0; opacity:1 }
+		}
+
+		button{
+			font-family: "My Custom Font", Verdana, Tahoma;
+			background-color: transparent;
+			border-color: white;
+			border-style: solid;
+			color: white;
+			border-radius: 12px;
+			font-size: 20px;
+		}
+
+	</style>
+	<script type="text/javascript">
+
+
+    // var beef_data = (function() {
+    //     var dataList = [];
+    //     $.ajax({
+    //         'async': false,
+    //         'global': false,
+    //         'url': "data/beef.json",
+    //         'dataType': "json",
+    //         'success': function (data) {
+    //             for(var i=0; i<data.length;i++){
+		  //   		dataList.push(data[i]["Artist"]);
+				// }
+    //         }
+    //     });
+    //     return dataList;
+    // })();
+
+    function inputAudio(url1){
+	    $.ajax({
+	        url: url1,
+	        success: function() {
+	            // console.log("audio loaded");
+	            audioList.push(url1);
+	        }
+	    });
+    }
+
+    $(document).ready(function() {
+	    // inputAudio("audio/fried_chicken.mp3");
+	    inputAudio("audio/egg_man.mp3");
+	    // inputAudio("audio/soul_food.mp3");
+	});
+
+
+    var images = new Array()
+	function preload() {
+		for (i = 0; i < preload.arguments.length; i++) {
+			images[i] = new Image()
+			images[i].src = preload.arguments[i]
+		}
+	}
+	preload(
+		"image/eminem.png","image/eminem_1.png",
+		"image/ghostface_killah.png","image/ghostface_killah_1.png",
+		"image/jay_z.png","image/jay_z_1.png",
+		"image/kanye_west.png","image/kanye_west_1.png",
+		"image/lil_wayne.png","image/lil_wayne_1.png",
+		"image/mf_doom.png","image/mf_doom_1.png",
+		"image/missy_elliott.png","image/missy_elliott_1.png",
+		"image/nicki_minaj.png","image/nicki_minaj_1.png",
+		"image/rick_ross.png","image/rick_ross_1.png",
+		"image/trina.png","image/trina_1.png");
+	// preload("gifs/cooking1.gif","gifs/cooking2.gif","gifs/cooking3.gif","gifs/cooking4.gif",
+	// 	"gifs/cooking5.gif","gifs/cooking6.gif","gifs/cooking7.gif"
+	// 	);
+	
+	var audioList=[];
+    var appetizerList = [];
+    var entreeList = [];
+    var dessertList = [];
+    var cookImages = ["gifs/cooking1.gif","gifs/cooking2.gif","gifs/cooking3.gif","gifs/cooking4.gif","gifs/cooking5.gif","gifs/cooking6.gif","gifs/cooking7.gif"];
+    // var cookImages = ["gifs/cooking1.gif","gifs/cooking2.gif","gifs/cooking3.gif","gifs/cooking4.gif","gifs/cooking5.gif","gifs/cooking6.gif","gifs/cooking7.gif","gifs/cooking8.gif","gifs/cooking9.gif","gifs/cooking10.gif","gifs/cooking11.gif","gifs/cooking12.gif","gifs/cooking13.gif","gifs/cooking14.gif"];
+    var saladImage = ["food/salad/caesar_salad.jpg","food/salad/caesar_salad2.jpg","food/salad/greek_salad.jpg","food/salad/chicken_salad.jpg"];
+    var soupImage = ["food/soup/onion_soup.jpg","food/soup/potato_soup.jpg","food/soup/tomato_soup.jpg","food/soup/tomato_soup2.jpg"];
+    var caviarImage = ["food/caviar/caviar.jpg","food/caviar/caviar2.jpg"];
+    var cheddarImage = ["food/cheddar/cheddar_apple_salad_bites.jpg","food/cheddar/cheddar.jpg"];
+    var sushiImage = ["food/sushi/sushi.jpg","food/sushi/sushi2.jpg"];
+    var oysterImage = ["food/oyster/oyster.jpg","food/oyster/oyster2.jpg"];
+    var shrimpImage = ["food/shrimp/shrimp_cocktail.jpg"];
+    var ramenImage = ["food/ramen/ramen.jpg","food/ramen/ramen2.jpg"];
+    var steakImage = ["food/steak/steak.jpg","food/steak/steak2.jpg"];
+    var pizzaImage = ["food/pizza/hawaii_pizza.jpg","food/pizza/margherita.jpg"];
+    var pastaImage = ["food/pasta/pasta.jpg","food/pasta/pasta2.jpg"];
+    var fried_riceImage = ["food/fried_rice/fried_rice.jpg","food/fried_rice/fried_rice2.jpg"];
+    var spaghettiImage = ["food/spaghetti/spaghetti.jpg"];
+    var chickenImage = ["food/chicken/fried_chicken.jpg"];
+    var curry_chickenImage = ["food/curry_chicken/curry_chicken.png"];
+    var brownieImage = ["food/brownie/brownie.jpg"];
+    var cheesecakeImage = ["food/cheesecake/blueberry_cheesecake.jpg","food/cheesecake/cheesecake.jpg"];
+    var chocolateImage = ["food/chocolate/chocolate_cake.jpg","food/chocolate/chocolate_cake2.jpg"];
+    var ice_creamImage = ["food/ice_cream/ice_cream.jpg","food/ice_cream/ice_cream2.jpg"];
+    var sundaeImage = ["food/sundae/sundae.jpg","food/sundae/sundae2.jpg"];
+    var pieImage = ["food/pie/apple_pie.jpg","food/pie/apple_pie2.jpg"];
+
+    var dishNameList = ["Salad","Soup","Caviar","Cheddar","Sushi","Oyster","Shrimp","Ramen","Steak","Pizza","Pasta","Fried Rice","Spaghetti","Chicken","Curry Chicken","Brownie","Cheesecake","Chocolate","Ice Cream","Sundae","Pie"];
+    var dishImageList = [saladImage,soupImage,caviarImage,cheddarImage,sushiImage,oysterImage,shrimpImage,ramenImage,steakImage,pizzaImage,pastaImage,fried_riceImage,spaghettiImage,chickenImage,curry_chickenImage,brownieImage,cheesecakeImage,chocolateImage,ice_creamImage,sundaeImage,pieImage];
+
+    function getFinalDishImage(dishname,domElement){
+    	for(var i=0;i<dishNameList.length;i++){
+    		if(dishNameList[i] == dishname){
+    			var randomInt = getRandomInt(0,dishImageList[i].length-1);
+    			preload(dishImageList[i][randomInt]);
+    			$(domElement).attr("src",dishImageList[i][randomInt]);
+    		}
+    	}
+    }
+
+	function getRandomInt(min, max) {
+		min = Math.ceil(min);
+		max = Math.floor(max);
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+
+
+	function highlight(text,domElement){
+		var innerHTML = domElement.innerHTML;
+		var index = innerHTML.indexOf(text);
+		if(index>=0){
+			innerHTML = innerHTML.innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
+	        domElement.innerHTML = innerHTML;
+		}
+	}
+
+    function importData(json_file_name,type){
+    	var dataList = [];
+        $.ajax({
+            'async': false,
+            'global': false,
+            'url': "data/"+json_file_name,
+            'dataType': "json",
+            'success': function (data) {
+                for(var i=0; i<data.length;i++){
+                	data[i].dishName = json_file_name;
+                	data[i].dishType = type;
+		    		dataList.push(data[i]);
+		    		if(data[i].dishType=="appetizer"){
+		    			appetizerList.push(data[i]);
+		    			// console.log(appetizerList);
+		    		}
+		    		if(data[i].dishType=="entree"){
+		    			entreeList.push(data[i]);
+		    		}
+		    		if(data[i].dishType=="dessert"){
+		    			dessertList.push(data[i]);
+		    		}
+				}
+            }
+        });
+        return dataList;
+    }
+
+    var appetizerChosen=[];
+    var entreeChosen=[];
+    var dessertChosen=[];
+    var alldishes=[null,null,null];
+
+    function chooseDishes(rapper1,rapper2,rapper3){
+    	console.log("importing "+rapper1+" "+rapper2+" "+rapper3);
+    	appetizerChosen.length=0;
+    	entreeChosen.length=0;
+    	dessertChosen.length=0;
+    	for(var i=0;i<appetizerList.length;i++){
+    		if(appetizerList[i]["Artist"]==rapper1 || appetizerList[i]["Artist"]==rapper2 || appetizerList[i]["Artist"]==rapper3){
+    			appetizerChosen.push(appetizerList[i]);
+    		}
+    	}
+    	for(var i=0;i<entreeList.length;i++){
+    		if(entreeList[i]["Artist"]==rapper1 || entreeList[i]["Artist"]==rapper2 || entreeList[i]["Artist"]==rapper3){
+    			entreeChosen.push(entreeList[i]);
+    		}
+    	}
+    	for(var i=0;i<dessertList.length;i++){
+    		if(dessertList[i]["Artist"]==rapper1 || dessertList[i]["Artist"]==rapper2 || dessertList[i]["Artist"]==rapper3){
+    			dessertChosen.push(dessertList[i]);
+    		}
+    	}
+    }
+
+    var final_dishes = [null,null,null];
+
+    function sortDishes(){
+    	alldishes[0]=appetizerChosen;
+    	alldishes[1]=entreeChosen;
+    	alldishes[2]=dessertChosen;
+    	alldishes.sort(function(a,b){
+    		return a.length - b.length;
+    	})
+    	var random1 = alldishes[0][Math.floor(Math.random()*alldishes[0].length)];
+    	var random2 = alldishes[1][Math.floor(Math.random()*alldishes[1].length)];
+    	while(random1["Artist"]==random2["Artist"]){
+    		random2 = alldishes[1][Math.floor(Math.random()*alldishes[1].length)];
+    	}
+    	var random3 = alldishes[2][Math.floor(Math.random()*alldishes[2].length)];
+    	while(random3["Artist"]==random2["Artist"] || random3["Artist"]==random1["Artist"]){
+    		random3 = alldishes[2][Math.floor(Math.random()*alldishes[2].length)];
+    	}
+    	var temp_arrary = [random1,random2,random3];
+    	for(var i=0;i<temp_arrary.length;i++){
+    		if(temp_arrary[i].dishType=="appetizer"){
+    			final_dishes[0] = temp_arrary[i];
+    		}
+    		if(temp_arrary[i].dishType=="entree"){
+    			final_dishes[1] = temp_arrary[i];
+    		}
+    		if(temp_arrary[i].dishType=="dessert"){
+    			final_dishes[2] = temp_arrary[i];
+    		}
+    	}
+    }
+
+
+
+	function countInArray(array,name){
+		var count =0;
+		for(var j=0; j<array.length; j++){
+			if(array[j]== name){
+				count++;
+			}
+		}
+		return count;
+	}
+
+	function countResult(array,tag){
+
+		//filtering duplicated array object
+		arrayUnique = array.filter(function(elem,index,self){
+			return index == self.indexOf(elem);
+		});
+		console.log(array);
+		for(var i=0;i<arrayUnique.length;i++){
+			var artistCount = countInArray(array,arrayUnique[i]);
+			// $(tag).append("<h1></h1>")
+			// $(tag).append(array.length);
+			$(tag).append("<br>"+arrayUnique[i]+": "+artistCount);
+			// console.log(arrayUnique[i]+": "+artistCount);
+		}
+	}
+
+	// var butter_artistUnique = butter_artistList.filter(function(elem,index,self){
+	// 	return index == self.indexOf(elem);
+	// })
+
+
+
+
+	// for(var i=0;i<butter_artistUnique.length;i++){
+	// 	var artistCount = countInArray(butter_artistList,butter_artistUnique[i]);
+	// 	console.log(butter_artistUnique[i]+": "+artistCount);
+	// }
+
+	// console.log(butter_artistList);
+
+	var salad_data = importData("salad.json","appetizer");
+    var soup_data = importData("soup.json","appetizer");
+    var caviar_data = importData("caviar.json","appetizer");
+    var cheddar_data = importData("cheddar.json","appetizer");
+    var sushi_data = importData("sushi.json","appetizer");
+    var oyster_data = importData("oyster.json","appetizer");
+    var shrimp_data = importData("shrimp.json","appetizer");
+
+    var ramen_data = importData("ramen.json","entree");
+    var steak_data = importData("steak.json","entree");
+    var pizza_data = importData("pizza.json","entree");
+    var pasta_data = importData("pasta.json","entree");
+    var fried_rice_data = importData("fried_rice.json","entree");
+    var spaghetti_data = importData("spaghetti.json","entree");
+    var chicken_data = importData("chicken.json","entree");
+    var curry_chicken_data = importData("curry_chicken.json","entree");
+
+    var ice_cream_data = importData("ice_cream.json","dessert");
+    var chocolate_data = importData("chocolate.json","dessert");
+    var sundae_data = importData("sundae.json","dessert");
+    var cheesecake_data = importData("cheesecake.json","dessert");
+    var brownie_data = importData("brownie.json","dessert");
+    var pie_data = importData("pie.json","dessert");
+
+
+    function addAppetizerKey(data){
+    	for(var i=0;i<data.length;i++){
+    		data[i].dishType = "appetizer";
+    	}
+    }
+
+    function addeEntreeKey(data){
+    	for(var i=0;i<data.length;i++){
+    		data[i].dishType = "entree";
+    	}
+    }
+
+    function addDessertKey(data){
+    	for(var i=0;i<data.length;i++){
+    		data[i].dishType = "dessert";
+    	}
+    }
+
+ 
+
+
+
+    var kanye_west = [];
+    var rick_ross = [];
+    var trina = [];
+    var missy_elliott = [];
+    var nicki_minaj = [];
+    var lil_wayne = [];
+    var eminem = [];
+    var jay_z = [];
+    var ghostface_killah = [];
+
+    var rapperBtn = {
+    	"kanye_west":0,
+    	"jay_z":0,
+    	"nicki_minaj":0,
+    	"rick_ross":0,
+    	"missy_elliott":0,
+    	"eminem":0,
+    	"lil_wayne":0,
+    	"trina":0,
+    	"mf_doom":0,
+    	"ghostface_killah":0
+    }
+
+    var rapperNameList = ["kanye_west","jay_z","nicki_minaj","rick_ross","missy_elliott","eminem","lil_wayne","trina","mf_doom","ghostface_killah"];
+
+    String.prototype.toProperCase = function () {
+	    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+	};
+
+	function resetRapperBtn(rapperName){
+		rapperBtn = {
+    	"kanye_west":0,
+    	"jay_z":0,
+    	"nicki_minaj":0,
+    	"rick_ross":0,
+    	"missy_elliott":0,
+    	"eminem":0,
+    	"lil_wayne":0,
+    	"trina":0,
+    	"mf_doom":0,
+    	"ghostface_killah":0
+    	}
+		if(rapperBtn[rapperName]==0){
+    		document.getElementById(rapperName).src = "image/"+rapperName+"_1"+".png";
+    	}else{
+    		document.getElementById(rapperName).src = "image/"+rapperName+".png";
+    	}
+	}
+
+    function setRapperBtn(rapperName){
+    	document.getElementById(rapperName).addEventListener("click",function(){
+    		chosenRapperNames.length=0;
+    		if(rapperBtn[rapperName]==0){
+    			rapperBtn[rapperName]=1;
+    		}else{
+    			rapperBtn[rapperName]=0;
+    		}
+    		if(rapperBtn[rapperName]==0){
+	    		document.getElementById(rapperName).src = "image/"+rapperName+"_1"+".png";
+	    	}else{
+	    		document.getElementById(rapperName).src = "image/"+rapperName+".png";
+	    	}
+    		// console.log(rapperBtn);
+    		for(var key in rapperBtn){
+				if(rapperBtn[key]==1){
+					chosenRapperNames.push(key);
+				}
+			}
+			console.log("now "+chosenRapperNames+" being chosen");
+    	})
+    	document.getElementById(rapperName).src = "image/"+rapperName+"_1"+".png";
+    }
+
+    var chosenRapperNames = [];
+    var buffer;
+
+	function init(){
+		// console.log(salad_data);
+		// console.log(appetizerList);
+		// console.log(entreeList);
+		// chooseDishes("Jay Z","Eminem","Nicki Minaj");
+		// console.log(appetizerChosen);
+		// console.log(entreeChosen);
+		// console.log(dessertChosen);
+		// sortDishes();
+		// console.log(alldishes);
+		// console.log(final_dishes);
+
+		for(var i=0;i<rapperNameList.length;i++){
+			setRapperBtn(rapperNameList[i]);
+		}
+
+		document.getElementById("redo").addEventListener("click",function(){
+			for(var i=0;i<rapperNameList.length;i++){
+			resetRapperBtn(rapperNameList[i]);
+			}
+			$(".allrappers").show();
+			$(".description").show();
+			$(".dishes").hide();
+			chosenRapperNames.length=0;
+		})
+
+		document.getElementById("cook").addEventListener("click",function(){
+			
+			for(var i=0;i<chosenRapperNames.length;i++){
+				chosenRapperNames[i] = chosenRapperNames[i].replace("_"," ");
+				chosenRapperNames[i] = chosenRapperNames[i].toProperCase();
+				if(chosenRapperNames[i]=="Mf Doom"){
+					chosenRapperNames[i] = "MF DOOM";
+				}
+			}
+
+			//can only choose three contraint
+			if(chosenRapperNames.length==3){
+				$(".allrappers").hide();
+				$(".description").hide();
+				var randomInt = getRandomInt(0,cookImages.length-1);
+				// console.log(randomInt);
+				$("#cookingGif").attr("src",cookImages[randomInt]);
+				$("#loadingGif").show();
+				var audio = document.getElementById("buffer_music");
+				var randomInt = getRandomInt(0,150);
+				// var randomInt2 = getRandomInt(0,audioList.length-1);
+				// audio.currentTime = randomInt;
+				// console.log(audioList);
+				// audio.src = audioList[0];
+				audio.currentTime = randomInt;
+				console.log(randomInt);
+				if(audio.paused){
+					setTimeout(function(){
+						audio.play();
+					},150);
+				}else{
+					audio.play();
+				}
+				
+				console.log(chosenRapperNames);
+				chooseDishes(chosenRapperNames[0],chosenRapperNames[1],chosenRapperNames[2]);
+				sortDishes();
+				console.log(final_dishes);
+
+				for(var i=0;i<final_dishes.length;i++){
+					final_dishes[i]["dishName"] = final_dishes[i]["dishName"].replace(".json","");
+					final_dishes[i]["dishName"] = final_dishes[i]["dishName"].replace("_"," ");
+					final_dishes[i]["dishName"] = final_dishes[i]["dishName"].toProperCase();
+				}
+
+				var appetizerRapper = document.getElementById("appetizerRapper");
+				var appetizerName = document.getElementById("appetizerName");
+				var appetizerLyrics = document.getElementById("appetizerLyrics");
+				var appetizerAlbum = document.getElementById("appetizerAlbum");
+				appetizerRapper.innerHTML = final_dishes[0]["Artist"];
+				appetizerName.innerHTML = " - "+final_dishes[0]["dishName"];
+				appetizerLyrics.innerHTML = "\""+final_dishes[0]["Lyrics"]+"\"";
+				if(final_dishes[0]["Release date"]){
+				appetizerAlbum.innerHTML = " - "+final_dishes[0]["Album"]+" ("+final_dishes[0]["Release date"].substring(0,4)+")"+":";}
+				highlight(final_dishes[0]["dishName"].toLowerCase(),appetizerLyrics);
+				highlight(final_dishes[0]["dishName"],appetizerLyrics);
+				getFinalDishImage(final_dishes[0]["dishName"],"#appetizerImage");
+
+				var entreeRapper = document.getElementById("entreeRapper");
+				var entreeName = document.getElementById("entreeName");
+				var entreeLyrics = document.getElementById("entreeLyrics");
+				var entreeAlbum = document.getElementById("entreeAlbum");
+				entreeRapper.innerHTML = final_dishes[1]["Artist"];
+				entreeName.innerHTML = " - "+final_dishes[1]["dishName"];
+				entreeLyrics.innerHTML = "\""+final_dishes[1]["Lyrics"]+"\"";
+				if(final_dishes[1]["Release date"]){
+				entreeAlbum.innerHTML = " - "+final_dishes[1]["Album"]+" ("+final_dishes[1]["Release date"].substring(0,4)+")"+":";}
+				highlight(final_dishes[1]["dishName"].toLowerCase(),entreeLyrics);
+				highlight(final_dishes[1]["dishName"],entreeLyrics);
+				getFinalDishImage(final_dishes[1]["dishName"],"#entreeImage");
+
+				var dessertRapper = document.getElementById("dessertRapper");
+				var dessertName = document.getElementById("dessertName");
+				var dessertLyrics = document.getElementById("dessertLyrics");
+				var dessertAlbum = document.getElementById("dessertAlbum");
+				dessertRapper.innerHTML = final_dishes[2]["Artist"];
+				dessertName.innerHTML = " - "+final_dishes[2]["dishName"];
+				dessertLyrics.innerHTML = "\""+final_dishes[2]["Lyrics"]+"\"";
+				if(final_dishes[2]["Release date"]){
+				dessertAlbum.innerHTML = " - "+final_dishes[2]["Album"]+" ("+final_dishes[2]["Release date"].substring(0,4)+")"+":";}
+				highlight(final_dishes[2]["dishName"].toLowerCase(),dessertLyrics);
+				highlight(final_dishes[2]["dishName"],dessertLyrics);
+				getFinalDishImage(final_dishes[2]["dishName"],"#dessertImage");
+
+				buffer = setTimeout(function(){
+					$("#loadingGif").hide();
+					$(".dishes").show();
+					$("#buffer_music").trigger('pause');
+				},7000);
+
+			}else if(chosenRapperNames.length<3){
+				console.log("invalid length: "+chosenRapperNames.length);
+				alert("please choose at least 3 ingredients");
+			}else if(chosenRapperNames.length>3){
+				console.log("invalid length: "+chosenRapperNames.length);
+				alert("please only choose 3 ingredients");
+			}
+
+		})
+
+	   	// document.getElementById("kanye").addEventListener("click",function(){
+	   	// 	if(rapperBtn[0]==0){
+	   	// 		rapperBtn[0] = 1;
+	   	// 	}else{
+	   	// 		rapperBtn[0] = 0;
+	   	// 	}
+	   	// 	console.log(rapperBtn[0]);
+	   	// });
+	}
+
+	window.addEventListener('load', init);
+</script>
+</head>
+
+
+<body>
+	<div class="container">
+	<div class="all_wrapper">
+	<div class="row title customfont"><h1>hip-hop feast</h1><h2>with your favorite rap stars</h2></div>
+	<div class="row showbox">
+		<div class="allrappers">
+		<div class="col-lg-12">
+		<img class="rappers" id="kanye_west" src="">
+		<img class="rappers" id="jay_z" src="">
+		<img class="rappers" id="nicki_minaj" src="">
+		<img class="rappers" id="rick_ross" src="">
+		<img class="rappers" id="missy_elliott" src="">
+		</div>
+		<div class="col-lg-12">
+		<img class="rappers" id="eminem" src="">
+		<img class="rappers" id="lil_wayne" src="">
+		<img class="rappers" id="trina" src="">
+		<img class="rappers" id="mf_doom" src="">
+		<img class="rappers" id="ghostface_killah" src="">
+		</div>
+		</div>
+
+		<div id="loadingGif" style="display: none">
+			<img id="cookingGif" src="">
+			<br>
+			<br>
+			<p>your food will be ready soon...</p>
+		</div>
+	
+		<div class="col-lg-4 col-sm-12 dishes animate-bottom" id="appetizer">
+			<h2>appetizer<span class="customfont" id="appetizerName"></span></h2>
+			<img class="dishImage" id="appetizerImage" src="">
+			<p></p>
+			<span style="font-weight: bold;" id="appetizerRapper"></span>
+			<span style="font-style: italic;" id="appetizerAlbum"></span>
+			<p style="font-style: italic;" id="appetizerLyrics"><p>
+		</div>
+		<div class="col-lg-4 col-sm-12 dishes animate-bottom" id="entree">
+			<h2>entree<span class="customfont" id="entreeName"></span></h2>
+			<img class="dishImage" id="entreeImage" src="">
+			<p></p>
+			<span style="font-weight: bold;" id="entreeRapper"></span>
+			<span style="font-style: italic;" id="entreeAlbum"></span>
+			<p style="font-style: italic;" id="entreeLyrics"><p>
+		</div>
+		<div class="col-lg-4 col-sm-12 dishes animate-bottom" id="dessert">
+			<h2>dessert<span class="customfont" id="dessertName"></span></h2>
+			<img class="dishImage" id="dessertImage" src="">
+			<p></p>
+			<span style="font-weight: bold;" id="dessertRapper"></span>
+			<span style="font-style: italic;" id="dessertAlbum"></span>
+			<p style="font-style: italic;" id="dessertLyrics"><p>
+		</div>
+
+		<br>
+
+	</div>
+
+	<div class="row bottom">
+		<div class="col-lg-12 description">
+		<p>choose 3 favorite rap stars to cook your hip-hop feast!</p>
+		</div>
+		<br>
+		<div class="col-lg-12">
+		<button type="button" class="description" id="cook">cook!</button>	
+		<button type="button" class="dishes" id="redo">choose again!</button>
+		</div>
+	</div>
+
+	<audio id="buffer_music"><source src="audio/egg_man.mp3" type="audio/mpeg"></audio>
+	<img src="image/favicon.png" style="display: none;">
+	</div>
+
+	</div>
+
+</body>
+
+
+</html>
